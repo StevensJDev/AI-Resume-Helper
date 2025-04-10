@@ -10,18 +10,28 @@ chrome.runtime.onInstalled.addListener(() => {
   // Handle context menu clicks
   chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     if (info.menuItemId === "deepseekAnswer" && info.selectionText) {
-      // Get user parameters from storage
-      const userParams = await chrome.storage.sync.get([
-        'preferredLength',
-        'technicalLevel',
-        'preferredStyle'
-      ]);
-      
-      // Send message to content script with the selected text and user params
-      chrome.tabs.sendMessage(tab.id, {
-        action: "getDeepseekAnswer",
-        text: info.selectionText,
-        params: userParams
-      });
+      try {
+        // Check if the content script is loaded
+        await chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ["content.js"]
+        });
+        
+        // Get user parameters from storage
+        const userParams = await chrome.storage.sync.get([
+          'preferredLength',
+          'technicalLevel',
+          'preferredStyle'
+        ]);
+
+        // Send message to content script with the selected text and user params
+        chrome.tabs.sendMessage(tab.id, {
+          action: "getDeepseekAnswer",
+          text: info.selectionText,
+          params: userParams
+        });
+      } catch (error) {
+        console.error("Error injecting content script or sending message:", error);
+      }
     }
   });

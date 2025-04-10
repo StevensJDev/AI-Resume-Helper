@@ -77,7 +77,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
   
   async function callDeepseekAPI(prompt) {
-    const API_KEY = config.API_KEY;; // In production, store this securely
+    const API_KEY = 'sk-f6cf44394fc04096813db8babaee26b2'; // Replace with non-expired code
     const API_URL = 'https://api.deepseek.com/v1/chat/completions'; // Replace with actual API endpoint
     
     try {
