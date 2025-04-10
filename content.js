@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
   
   function constructPrompt(question, params) {
-    let prompt = `Answer the following question: "${question}"`;
+    let prompt = `In plane english without a bunch of extra characters answer the following question: "${question}"`;
 
     if (params.globalContext) {
       prompt = `${params.globalContext}\n\n${prompt}`;
@@ -67,10 +67,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // Add answer content
     popup.innerHTML = `
       <div style="margin-bottom: 15px; font-weight: bold;">DeepSeek Answer</div>
-      <div style="margin-bottom: 15px;">${answer}</div>
+      <div id="answerContent" style="margin-bottom: 15px;">${answer}</div>
+      <button id="copyToClipboard" style="padding: 5px 10px; background: #34a853; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">Copy to Clipboard</button>
       <button id="closePopup" style="padding: 5px 10px; background: #4285f4; color: white; border: none; border-radius: 4px; cursor: pointer;">Close</button>
     `;
     
+    // Add copy button functionality
+    popup.querySelector('#copyToClipboard').addEventListener('click', () => {
+        const answerText = document.getElementById('answerContent').textContent;
+        navigator.clipboard.writeText(answerText).then(() => {
+            alert('Answer copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    });
+
     // Add close button functionality
     popup.querySelector('#closePopup').addEventListener('click', () => {
       document.body.removeChild(popup);

@@ -15,10 +15,38 @@
             font-size: 14px;
             cursor: pointer;
         }
+        #copyButton {
+            padding: 10px 15px;
+            font-size: 14px;
+            cursor: pointer;
+            background: #34a853;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        #copyButton:hover {
+            background: #2c8c47;
+        }
     </style>
 </head>
 <body>
     <h1>DeepSeek Assistant</h1>
     <p>Highlight text on a webpage and get answers instantly.</p>
+    <button id="copyButton">Copy to Clipboard</button>
+    <script>
+        document.getElementById('copyButton').addEventListener('click', () => {
+            const answerElement = document.querySelector('div[style*="DeepSeek Answer"] + div');
+            if (answerElement) {
+                navigator.clipboard.writeText(answerElement.textContent).then(() => {
+                    alert('Answer copied to clipboard!');
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            } else {
+                alert('No answer available to copy.');
+            }
+        });
+    </script>
 </body>
 </html>
