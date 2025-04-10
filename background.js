@@ -21,7 +21,8 @@ chrome.runtime.onInstalled.addListener(() => {
         const userParams = await chrome.storage.sync.get([
           'preferredLength',
           'technicalLevel',
-          'preferredStyle'
+          'preferredStyle',
+          'globalContext'
         ]);
 
         // Send message to content script with the selected text and user params

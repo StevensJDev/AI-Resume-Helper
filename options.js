@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     chrome.storage.sync.get([
       'preferredLength',
       'technicalLevel',
-      'preferredStyle'
+      'preferredStyle',
+      'globalContext'
     ], (settings) => {
       if (settings.preferredLength) {
         document.getElementById('preferredLength').value = settings.preferredLength;
@@ -14,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (settings.preferredStyle) {
         document.getElementById('preferredStyle').value = settings.preferredStyle;
       }
+      if (settings.globalContext) {
+        document.getElementById('globalContext').value = settings.globalContext;
+      }
     });
     
     // Save settings
@@ -21,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const settings = {
         preferredLength: document.getElementById('preferredLength').value,
         technicalLevel: document.getElementById('technicalLevel').value,
-        preferredStyle: document.getElementById('preferredStyle').value
+        preferredStyle: document.getElementById('preferredStyle').value,
+        globalContext: document.getElementById('globalContext').value
       };
       
       chrome.storage.sync.set(settings, () => {

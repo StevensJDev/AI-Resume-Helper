@@ -28,6 +28,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   
   function constructPrompt(question, params) {
     let prompt = `Answer the following question: "${question}"`;
+
+    if (params.globalContext) {
+      prompt = `${params.globalContext}\n\n${prompt}`;
+    }
     
     if (params.preferredLength) {
       prompt += `\nPlease provide a ${params.preferredLength} answer.`;
