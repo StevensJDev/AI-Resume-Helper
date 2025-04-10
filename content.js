@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
   
   function constructPrompt(question, params) {
-    let prompt = `In plane english without a bunch of extra characters answer the following question: "${question}"`;
+    let prompt = `In plain english without a bunch of extra characters answer the following question: "${question}"`;
 
     if (params.globalContext) {
       prompt = `${params.globalContext}\n\n${prompt}`;

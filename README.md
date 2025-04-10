@@ -7,6 +7,7 @@ DeepSeek Assistant is a Chrome extension that provides intelligent answers to hi
 - **Context Menu Integration**: Highlight text on any webpage and get answers via the context menu.
 - **Customizable Settings**: Adjust preferred answer length, technical level, and style through the settings page.
 - **Popup Display**: View answers in a clean, user-friendly popup.
+- **Copy to Clipboard**: Easily copy the generated answer to your clipboard with a single click.
 
 ## Installation
 
@@ -27,6 +28,7 @@ DeepSeek Assistant is a Chrome extension that provides intelligent answers to hi
 1. Highlight any text on a webpage.
 2. Right-click and select "DeepSeek Answer" from the context menu.
 3. View the answer in a popup.
+4. Use the "Copy to Clipboard" button in the popup to copy the answer to your clipboard.
 
 ## Configuration
 
@@ -36,18 +38,6 @@ DeepSeek Assistant is a Chrome extension that provides intelligent answers to hi
    - **Technical Level**: Beginner, Intermediate, or Advanced.
    - **Preferred Style**: Neutral, Friendly, or Professional.
 3. Save your settings.
-
-## API Key Setup
-
-1. Create a `config.js` file in the root directory (this file is ignored by Git).
-2. Add your DeepSeek API key:
-   ```js
-   // filepath: c:\Users\3kwik\OneDrive\Desktop\SHDW Arts Bus\Portfolio\AI-Resume-Helper\config.js
-   const config = {
-       API_KEY: "your-deepseek-api-key"
-   };
-   ```
-3. Replace `"your-deepseek-api-key"` with your actual API key.
 
 ## License
 
