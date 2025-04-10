@@ -39,7 +39,7 @@
             const answerElement = document.querySelector('div[style*="DeepSeek Answer"] + div');
             if (answerElement) {
                 navigator.clipboard.writeText(answerElement.textContent).then(() => {
-                    alert('Answer copied to clipboard!');
+                    console.log('Answer copied to clipboard!');
                 }).catch(err => {
                     console.error('Failed to copy text: ', err);
                 });

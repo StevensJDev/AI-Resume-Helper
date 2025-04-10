@@ -1,3 +1,6 @@
+var API_KEY = 'Default_API_Key'; // Replace with non-expired code
+var API_URL = 'Default_API_URL'; // Replace with actual API endpoint
+
 // Listen for messages from background script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === "getDeepseekAnswer") {
@@ -27,22 +30,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
   
   function constructPrompt(question, params) {
+    // Ensure API_KEY and API_URL are set correctly
+    if (params.apiKey) {
+        API_KEY = params.apiKey;
+    }
+    if (params.apiUrl) {
+        API_URL = params.apiUrl;
+    }
+
     let prompt = `In plain english without a bunch of extra characters answer the following question: "${question}"`;
 
     if (params.globalContext) {
-      prompt = `${params.globalContext}\n\n${prompt}`;
+        prompt = `${params.globalContext}\n\n${prompt}`;
     }
     
     if (params.preferredLength) {
-      prompt += `\nPlease provide a ${params.preferredLength} answer.`;
+        prompt += `\nPlease provide a ${params.preferredLength} answer.`;
     }
     
     if (params.technicalLevel) {
-      prompt += `\nThe answer should be at a ${params.technicalLevel} technical level.`;
+        prompt += `\nThe answer should be at a ${params.technicalLevel} technical level.`;
     }
     
     if (params.preferredStyle) {
-      prompt += `\nThe answer should be in a ${params.preferredStyle} style.`;
+        prompt += `\nThe answer should be in a ${params.preferredStyle} style.`;
     }
     
     return prompt;
@@ -91,10 +102,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     document.body.appendChild(popup);
   }
   
-  async function callDeepseekAPI(prompt) {
-    const API_KEY = 'sk-f6cf44394fc04096813db8babaee26b2'; // Replace with non-expired code
-    const API_URL = 'https://api.deepseek.com/v1/chat/completions'; // Replace with actual API endpoint
-    
+  async function callDeepseekAPI(prompt) {    
     try {
       const response = await fetch(API_URL, {
         method: 'POST',

@@ -19,6 +19,8 @@ chrome.runtime.onInstalled.addListener(() => {
         
         // Get user parameters from storage
         const userParams = await chrome.storage.sync.get([
+          'apiKey',
+          'apiUrl',
           'preferredLength',
           'technicalLevel',
           'preferredStyle',
